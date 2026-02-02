@@ -1,0 +1,97 @@
+<section id="booking-form" class="section-padding bg-gray-50">
+    <div class="container mx-auto px-4">
+        <div class="max-w-4xl mx-auto bg-white rounded-2xl shadow-xl overflow-hidden">
+            <div class="bg-primary text-white text-center py-6">
+                <h2 class="text-2xl md:text-3xl font-bold">Book Your Transfer</h2>
+                <p class="mt-2 opacity-90">Fill out the form below to get your quote</p>
+            </div>
+            
+            <div class="p-6 md:p-8">
+                <form [formGroup]="bookingForm" (ngSubmit)="onSubmit()" class="space-y-6">
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-gray-700 font-medium mb-2">Full Name <span class="text-secondary">*</span></label>
+                            <input formControlName="name" type="text" class="form-control w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary focus:outline-none">
+                            <p *ngIf="bookingForm.get('name')?.touched && bookingForm.get('name')?.invalid" class="text-red-500 text-sm mt-1">Full name is required</p>
+                        </div>
+
+                        <div>
+                            <label class="block text-gray-700 font-medium mb-2">Phone Number <span class="text-secondary">*</span></label>
+                            <input formControlName="phone" type="tel" class="form-control w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary focus:outline-none">
+                            <p *ngIf="bookingForm.get('phone')?.touched && bookingForm.get('phone')?.invalid" class="text-red-500 text-sm mt-1">Valid phone required</p>
+                        </div>
+
+                        <div>
+                            <label class="block text-gray-700 font-medium mb-2">Email Address <span class="text-secondary">*</span></label>
+                            <input formControlName="email" type="email" class="form-control w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary focus:outline-none">
+                            <p *ngIf="bookingForm.get('email')?.touched && bookingForm.get('email')?.invalid" class="text-red-500 text-sm mt-1">Valid email required</p>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-gray-700 font-medium mb-2">Service Frequency <span class="text-secondary">*</span></label>
+                            <select formControlName="frequency" class="form-control w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary focus:outline-none bg-white">
+                                <option value="One Time">One Time Trip</option>
+                                <option value="Weekly">Weekly Service</option>
+                                <option value="Monthly">Monthly Service</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-gray-700 font-medium mb-2">Pickup Location <span class="text-secondary">*</span></label>
+                            <input formControlName="pickupLocation" type="text" class="form-control w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary focus:outline-none" placeholder="Building, Street...">
+                            <p *ngIf="bookingForm.get('pickupLocation')?.touched && bookingForm.get('pickupLocation')?.invalid" class="text-red-500 text-sm mt-1">Pickup location required</p>
+                        </div>
+
+                        <div>
+                            <label class="block text-gray-700 font-medium mb-2">Drop Off Location <span class="text-secondary">*</span></label>
+                            <input formControlName="destination" type="text" class="form-control w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary focus:outline-none">
+                            <p *ngIf="bookingForm.get('destination')?.touched && bookingForm.get('destination')?.invalid" class="text-red-500 text-sm mt-1">Destination required</p>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div>
+                            <label class="block text-gray-700 font-medium mb-2">Start Date <span class="text-secondary">*</span></label>
+                            <input formControlName="pickupDate" type="date" class="form-control w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary focus:outline-none">
+                        </div>
+
+                        <div>
+                            <label class="block text-gray-700 font-medium mb-2">Office Start Time <span class="text-secondary">*</span></label>
+                            <input formControlName="timeFrom" type="time" class="form-control w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary focus:outline-none">
+                            <p *ngIf="bookingForm.get('timeFrom')?.touched && bookingForm.get('timeFrom')?.invalid" class="text-red-500 text-sm mt-1">Required</p>
+                        </div>
+
+                        <div>
+                            <label class="block text-gray-700 font-medium mb-2">Office End Time <span class="text-secondary">*</span></label>
+                            <input formControlName="timeTo" type="time" class="form-control w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary focus:outline-none">
+                            <p *ngIf="bookingForm.get('timeTo')?.touched && bookingForm.get('timeTo')?.invalid" class="text-red-500 text-sm mt-1">Required</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start">
+                        <input formControlName="terms" type="checkbox" class="mt-1 h-4 w-4 text-primary rounded border-gray-300 focus:ring-primary">
+                        <label class="ml-2 block text-gray-700">
+                            I agree to the <a href="#" class="text-primary hover:underline">Terms of Service</a>
+                        </label>
+                    </div>
+                    <p *ngIf="bookingForm.get('terms')?.touched && bookingForm.get('terms')?.invalid" class="text-red-500 text-sm">You must agree to terms</p>
+
+                    <button type="submit" [disabled]="isLoading" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 rounded-lg shadow-lg transition duration-300 disabled:opacity-50 disabled:cursor-not-allowed">
+                        <span *ngIf="!isLoading">Request Booking</span>
+                        <span *ngIf="isLoading"><i class="fas fa-spinner fa-spin mr-2"></i> Processing...</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="showSuccess" class="fixed bottom-6 right-6 max-w-md p-4 rounded-lg shadow-lg text-white font-medium z-50 bg-green-600 transition-all duration-300">
+        Booking request submitted successfully!
+    </div>
+    <div *ngIf="showError" class="fixed bottom-6 right-6 max-w-md p-4 rounded-lg shadow-lg text-white font-medium z-50 bg-red-600 transition-all duration-300">
+        Error submitting form. Please try again.
+    </div>
+</section>
