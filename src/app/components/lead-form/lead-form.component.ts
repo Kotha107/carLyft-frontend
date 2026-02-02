@@ -58,7 +58,7 @@ export class LeadFormComponent {
         timeTo: this.bookingForm.value.timeTo
     };
 
-    this.http.post('http://localhost:3000/api/leads', payload)
+    this.http.post(' https://carlyft-backend.onrender.com', payload)
       .subscribe({
         next: () => {
           this.isLoading = false;
