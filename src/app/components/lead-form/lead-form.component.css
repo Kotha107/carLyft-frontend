@@ -1,0 +1,9 @@
+.custom-btn {
+  /* The exact gradient you asked for */
+  background: linear-gradient(rgba(26, 58, 108, 0.85), rgba(29, 53, 87, 0.9));
+}
+
+.custom-btn:hover {
+  /* Slightly darker version for hover state */
+  background: linear-gradient(rgba(20, 48, 90, 0.95), rgba(20, 40, 70, 1));
+}
